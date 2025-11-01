@@ -1,0 +1,57 @@
+notes 
+se connecter à github/settings/developers
+faire une app qui accède à github et réalise des actions (profils, reposiotories)
+sans connaitre mot de passe
+composition en 3 parties, en routes (/login, /callback, /protected route)
+
+Identification
+Authentification (token, empreinte)
+Autorisation (droits associés à un profil donné)
+github paramètre pour config l'app 
+avoir l'architecture avant (routes)
+-> url https://localhost/public/oauth/public/index.php
+https://localhost/public/oauth/public/index.php
+
+le client ID (information) pour obtenir la clé d'autorisation
+
+
+74048e5859c380c9e5e6eedc9558e8d75887e2cb pour obtenir le jeton d'accès
+
+
+Exercice GitHub application oauth
+
+
+Créer app sur Github
+Créer un processus pour obtenir l'autorisation de faire des choses sur le compte GitHub
+-> obtenir l'autorisation de GitHub
+-> obtenir un jeton d'accès + un jeton de rafraîchissement (fait par github)
+-> afficher les données du profil utiilisateur
+
+Points d'accès 
+- Autorisation : https://github.com/login/oauth/authorize?client_id=<?= 
+$_ENV[GITHUB_CLIENT_ID'] ?>&scope=user:read"
+
+    - éventuellement ajouter un 'state' pour mieux protéger la requête
+    - Obtenir le jeton d'accès : https://github.com/login/oauth/access_token
+
+    Explique moi le principe, là j'ai déjà créé l'app OAth GitHub (capture) ainsi que le 
+    jeton token (classic) il me demande d'établir le scope donc la portée d'action à laquelle 
+    le jeton donnera accès n'est-ce aps ?
+    Ensuite il faudra faire une application php pour gérer cela faisons un plan de conception.
+
+
+#Authentification 2FA
+
+Objectif 
+- L'utilisateur doit pouvoir s'identifier et rester reconnu par l'application avec des jetons JWT
+
+1 . L'utilisateur s'identifie avec son mot de passe 
+2. On demande à l'utilisateur de confirmer son identité
+ - Il peut choisir entre : 
+ - recevoir un mail
+ - recevoir un SMS (Twilio)
+ - scanner un QR code (TOTP)
+    - Google Authentificator
+    - TOTP Authentificator
+
+ 3. Autoriser l'utilisateur à accéder à certaines ressources
