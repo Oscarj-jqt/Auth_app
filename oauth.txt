@@ -55,3 +55,24 @@ Objectif
     - TOTP Authentificator
 
  3. Autoriser l'utilisateur à accéder à certaines ressources
+
+ Découpage en étapes
+1. Authentification OAuth
+/login : Redirige vers GitHub OAuth.
+/callback : Récupère code, échange contre token, récupère profil.
+2. Authentification 2FA
+/2fa_select : Propose le choix du facteur (mail, SMS, TOTP)
+/2fa_send : Envoie le code ou affiche le QR code
+/2fa_verify : Vérifie le code entré par l’utilisateur
+3. Autorisation et accès
+Génère un JWT si 2FA OK
+/protected : Accès aux ressources protégées si JWT valide
+4. Déconnexion
+/logout : Invalide le JWT
+
+ Ressources nécessaires
+Librairie JWT (ex : firebase/php-jwt)
+Librairie TOTP/QR code (ex : spomky-labs/otphp, endroid/qr-code)
+Service email (PHPMailer ou autre)
+Service SMS (Twilio)
+Librairie HTTP client (ex : Guzzle pour les requêtes vers GitHub)
