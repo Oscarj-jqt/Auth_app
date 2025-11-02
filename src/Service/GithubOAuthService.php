@@ -60,6 +60,12 @@ class GithubOAuthService
 
         $data = json_decode($response, true);
 
+        // DEBUG
+        if (!$data || !isset($data['access_token'])) {
+            echo "<pre>Réponse GitHub : " . htmlspecialchars($response) . "</pre>";
+            return null;
+        }
+
         return $data['access_token'] ?? null;
     }
 }

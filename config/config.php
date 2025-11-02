@@ -6,9 +6,9 @@
 
 return [
     // GitHub OAuth
-    'github_client_id' => getenv('GITHUB_CLIENT_ID') ?: 'monid',
-    'github_client_secret' => getenv('GITHUB_CLIENT_SECRET') ?: 'monsecret',
-    'github_redirect_uri' => getenv('GITHUB_REDIRECT_URI') ?: 'https://localhost/public/oauth/public/callback.php',
+    'github_client_id' => $_ENV['GITHUB_CLIENT_ID'] ?? 'monid',
+    'github_client_secret' => $_ENV['GITHUB_CLIENT_SECRET'] ?? 'monsecret',
+    'github_redirect_uri' => $_ENV['GITHUB_REDIRECT_URI'] ?? 'http://localhost:8080/callback',
     'github_scope' => 'read:user',
 
     // JSON "DB"

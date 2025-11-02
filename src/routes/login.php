@@ -10,6 +10,7 @@ use App\Service\GithubOAuthService;
 
 $config = require(__DIR__ . '/../../config/config.php');
 
+session_start();
 
 // Si l'utilisateur n'est pas connecté, démarrer OAuth GitHub
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

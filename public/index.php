@@ -3,6 +3,12 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+// Charger .env
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+$config = require(__DIR__ . '/../config/config.php');
+
 /**
  * Point d'entrée de l'application OAuth (router)
  */
