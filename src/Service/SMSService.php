@@ -1,5 +1,0 @@
-<?php
-
-/**
- * Envoie SMS (Twilio)
- */
