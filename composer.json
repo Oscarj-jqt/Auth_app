@@ -1,5 +1,8 @@
 {
     "require": {
-        "firebase/php-jwt": "^6.11"
+        "firebase/php-jwt": "^6.11",
+        "phpmailer/phpmailer": "^7.0",
+        "twilio/sdk": "^8.8",
+        "league/oauth2-client": "^2.8"
     }
 }

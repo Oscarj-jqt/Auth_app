@@ -6,8 +6,8 @@
 
 return [
     // GitHub OAuth
-    'github_client_id' => getenv('GITHUB_CLIENT_ID') ?: 'Oscarj-jqt',
-    'github_client_secret' => getenv('GITHUB_CLIENT_SECRET') ?: '74048e5859c380c9e5e6eedc9558e8d75887e2cb',
+    'github_client_id' => getenv('GITHUB_CLIENT_ID') ?: 'monid',
+    'github_client_secret' => getenv('GITHUB_CLIENT_SECRET') ?: 'monsecret',
     'github_redirect_uri' => getenv('GITHUB_REDIRECT_URI') ?: 'https://localhost/public/oauth/public/callback.php',
     'github_scope' => 'read:user',
 
@@ -26,6 +26,7 @@ return [
         'from' => getenv('TWILIO_FROM') ?: '',
     ],
     'mail' => [
-        'from' => 'jacquetoscar0@gmail.com'
+        'from' => 'jacquetoscar0@gmail.com',
+        'password' => getenv('MAIL_PASSWORD') ?: ''
     ]
 ];
