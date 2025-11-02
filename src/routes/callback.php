@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+
 /**
  * Route de redirection après autorisation
  */

@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+
 session_start();
 
 // Vérifier que l'utilisateur vient de s'authentifier

@@ -4,5 +4,10 @@
         "phpmailer/phpmailer": "^7.0",
         "twilio/sdk": "^8.8",
         "league/oauth2-client": "^2.8"
+    },
+    "autoload": {
+    "psr-4": {
+        "App\\": "src/"
     }
+}
 }

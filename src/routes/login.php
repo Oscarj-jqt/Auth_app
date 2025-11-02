@@ -4,6 +4,8 @@
  * Route de connexion OAuth
  */
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 use App\Service\GithubOAuthService;
 
 $config = require(__DIR__ . '/../../config/config.php');

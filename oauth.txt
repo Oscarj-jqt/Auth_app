@@ -76,3 +76,33 @@ Librairie TOTP/QR code (ex : spomky-labs/otphp, endroid/qr-code)
 Service email (PHPMailer ou autre)
 Service SMS (Twilio)
 Librairie HTTP client (ex : Guzzle pour les requêtes vers GitHub)
+
+procédons à des tests pour vérifier si ce qu'on a fonctionne déjà , aussi je vois plein de clé dans config.php que faut il créer dans le .env, installer comme bibliothèque (firebase phpmailer, twiolio donne moi les commandes) et/ou s'assurer d'avoir dans GitHub, twilio ...
+
+
+feat: add JSON user repo, JWT and 2FA services; persist user in callback and protect route
+
+Si tu n’as pas envie de gérer la paperasserie du Bundle pour tester, tu peux laisser le système SMS en place dans ton code (pour la structure), mais ne pas le tester.
+Tu peux utiliser uniquement l’email (PHPMailer) pour le 2FA dans ton exercice, c’est largement suffisant pour la validation du projet et la logique.
+7. Tests manuels à faire
+Accéder à /login.php → Redirection GitHub
+Autoriser l’application → Retourne sur /callback.php, vérifie les données
+Consulter /protected.php sans JWT → Refusé
+Consulter /protected.php avec JWT en session → Accès OK
+
+
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer(true);
+try {
+    $mail->setFrom('noreply@tondomaine.com', 'MonApp');
+    $mail->addAddress($userEmail); // $userEmail = destinataire
+    $mail->Subject = 'Votre code 2FA';
+    $mail->Body = "Votre code de vérification : $code"; // $code = ton code généré
+    $mail->send();
+} catch (Exception $e) {
+    // Gérer l’erreur
+}
