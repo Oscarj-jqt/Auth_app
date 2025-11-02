@@ -5,6 +5,10 @@
  */
 
 use App\Service\GithubOAuthService;
+use App\Repository\UserRepository;
+use App\Service\JWTService;
+
+session_start();
 
 $config = require(__DIR__ . '/../../config/config.php');
 
@@ -57,6 +61,22 @@ if (!$userArray || !isset($userArray['login'])) {
 echo "<h1>Bienvenue " . htmlspecialchars($userArray['login']) . "</h1>";
 echo "<pre>" . htmlspecialchars(print_r($userArray, true)) . "</pre>";
 
-// Ici tu peux stocker le token dans le User ou démarrer le process 2FA
-// $_SESSION['github_token'] = $accessToken;
-// $_SESSION['github_id'] = $userArray['id'];
+// Avant de générer le JWT,  l’enregistrement correct du user dans le UserRepository
+$usersFile = $config['users_file'] ?? __DIR__ . '/../../data/users.json';
+$userRepository = new UserRepository($usersFile);
+$saved = $userRepository->save($userArray);
+
+// Générer le JWT après l'enregistrement du user
+$jwtService = new JWTService($config['jwt_secret'], $config['jwt_issuer'], $config['jwt_ttl']);
+$jwt = $jwtService->encode([
+    'user_id' => $saved['id'],
+    'github_id' => $saved['github_id'],
+    'username' => $saved['username'],
+    // autres infos si besoin
+]);
+
+$_SESSION['jwt'] = $jwt;
+
+// Rediriger vers le choix 2FA
+header('Location: /2fa_select.php');
+exit;

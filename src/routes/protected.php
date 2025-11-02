@@ -4,21 +4,36 @@
  * Route privée affichant données du user
  */
 
+use App\Service\JWTService;
+
 session_start();
 
-if (!isset($_SESSION['github_token'])) {
-    http_response_code(401);
-    echo "Accès refusé : veuillez vous authentifier via GitHub.";
-    exit;
-}
+$config = require(__DIR__ . '/../../config/config.php');
+
 
 // Ici, tu pourrais aussi vérifier un JWT si tu passes au système 2FA/JWT.
+$jwt = $_SESSION['jwt'] ?? null;
 
-// Afficher une ressource protégée
-echo "<h1>Ressource protégée</h1>";
-echo "<p>Vous êtes bien authentifié via GitHub !</p>";
+if (!$jwt) {
+    // optionnel : vérifier header Authorization
+    $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? ($_SERVER['Authorization'] ?? null);
+    if ($authHeader && preg_match('/Bearer\s(\S+)/', $authHeader, $m)) {
+        $jwt = $m[1];
+    }
+}
 
-// Exemple : afficher le login GitHub stocké en session
-if (isset($_SESSION['github_login'])) {
-    echo "<p>Connecté en tant que <strong>" . htmlspecialchars($_SESSION['github_login']) . "</strong></p>";
+if ($jwt) {
+    $jwtService = new JWTService($config['jwt_secret'], $config['jwt_issuer'], $config['jwt_ttl']);
+    $payload = $jwtService->decode($jwt);
+    if ($payload && isset($payload['user_id'])) {
+        echo "<h1>Ressource protégée</h1>";
+        echo "<p>Bienvenue " . htmlspecialchars($payload['username']) . " !</p>";
+        // autres infos
+    } else {
+        http_response_code(401);
+        echo "JWT invalide ou expiré.";
+    }
+} else {
+    http_response_code(401);
+    echo "Accès refusé : authentification requise.";
 }
