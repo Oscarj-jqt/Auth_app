@@ -24,10 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_SESSION['user_email'] ?? null;
     if (!$email) {
         $usersFile = $config['users_file'];
-        $userId = $_SESSION['user_id'];
+        $userId = $_SESSION['id'];
         $userRepo = new UserRepository($usersFile);
         $user = $userRepo->findById($userId);
-        $email = $user['email'] ?? null;
+        $email = $user['email'] ?? ($_ENV['DEFAULT_USER_EMAIL'] ?? null);
         $_SESSION['user_email'] = $email;
     }
 
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-echo "<form method='post' action='/2fa_verify.php'>
+echo "<form method='post' action='/2fa_verify'>
     <label for='code'>Code reçu par email :</label>
     <input type='text' name='code' required>
     <button type='submit'>Vérifier</button>

@@ -56,13 +56,16 @@ class GithubOAuthService
             'Accept: application/json'
         ]);
         $response = curl_exec($ch);
+        $curlError = curl_error($ch);
+        $curlInfo = curl_getinfo($ch);
         curl_close($ch);
 
         $data = json_decode($response, true);
 
-        // DEBUG
         if (!$data || !isset($data['access_token'])) {
             echo "<pre>Réponse GitHub : " . htmlspecialchars($response) . "</pre>";
+            echo "<pre>Erreur cURL : " . htmlspecialchars($curlError) . "</pre>";
+            echo "<pre>Infos cURL : " . print_r($curlInfo, true) . "</pre>";
             return null;
         }
 

@@ -84,5 +84,6 @@ $jwt = $jwtService->encode([
 $_SESSION['jwt'] = $jwt;
 
 // Rediriger vers le choix 2FA
-header('Location: /2fa_select.php');
+$_SESSION['github_token'] = $accessToken;
+header('Location: /2fa_select');
 exit;
