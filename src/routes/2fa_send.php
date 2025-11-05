@@ -27,6 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $userRepo = new UserRepository($usersFile);
     $user = $userRepo->findById($userId);
+    $user['twofa_type'] = $type;
+
 
 
     if ($type === 'email') {
@@ -36,6 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Récupérer l'email de l'utilisateur (depuis la session ou la base)
         $email = $_SESSION['user_email'] ?? $user['email'] ?? ($_ENV['MAIL_FROM'] ?? null);
         $_SESSION['user_email'] = $email;
+        $user['twofa_secret'] = null;
+
 
         if ($email) {
             $mail = new PHPMailer(true);
@@ -72,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $secret = $user['twofa_secret'] ?? TOTP::create()->getSecret();
         $user['twofa_secret'] = $secret;
         $userRepo->update($userId, $user); 
-
+        $_SESSION['totp_secret'] = $secret;
         // Générer le QR code
         $totp = TOTP::create($secret);
         $totp->setLabel($user['username'] ?? $user['login'] ?? 'user');
