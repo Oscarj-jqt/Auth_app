@@ -15,9 +15,6 @@ https://localhost/public/oauth/public/index.php
 le client ID (information) pour obtenir la clé d'autorisation
 
 
-74048e5859c380c9e5e6eedc9558e8d75887e2cb pour obtenir le jeton d'accès
-
-
 Exercice GitHub application oauth
 
 
@@ -33,12 +30,6 @@ $_ENV[GITHUB_CLIENT_ID'] ?>&scope=user:read"
 
     - éventuellement ajouter un 'state' pour mieux protéger la requête
     - Obtenir le jeton d'accès : https://github.com/login/oauth/access_token
-
-    Explique moi le principe, là j'ai déjà créé l'app OAth GitHub (capture) ainsi que le 
-    jeton token (classic) il me demande d'établir le scope donc la portée d'action à laquelle 
-    le jeton donnera accès n'est-ce aps ?
-    Ensuite il faudra faire une application php pour gérer cela faisons un plan de conception.
-
 
 #Authentification 2FA
 

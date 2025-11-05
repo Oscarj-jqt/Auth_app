@@ -9,6 +9,11 @@ Avant de lancer le projet, crée un fichier `.env` à la racine et renseigne :
 - `DEFAULT_USER_EMAIL` : email par défaut si l’utilisateur n’en a pas.
 - `JWT_SECRET`, `JWT_ISSUER`, `JWT_TTL` : pour la génération des tokens JWT.
 
+2. Configuration GitHub
+Crée une application OAuth sur github.com/settings/developers
+Mets l’URL de callback : http://localhost:8080/callback
+Récupère le client_id et client_secret pour .env
+
 **Exemple de .env :**
 ```
 GITHUB_CLIENT_ID=ton_client_id_github
@@ -30,13 +35,8 @@ Assure-toi que toutes ces variables sont bien renseignées avant de lancer le se
 . Bibliothèques à installer
 composer install
 
-3. Configuration GitHub
-Crée une application OAuth sur github.com/settings/developers
-Mets l’URL de callback : http://localhost:8080/callback
-Récupère le client_id et client_secret pour .env
 
-
-4. Configuration PHP/cURL (Windows)
+3. Configuration PHP/cURL (Windows)
 Télécharge cacert.pem sur https://curl.se/ca/cacert.pem
 Place-le dans ton dossier PHP (ex : extras/ssl)
 Ajoute dans php.ini (sans point-virgule) :
