@@ -53,5 +53,3 @@ Vérification : L’utilisateur saisit le code reçu.
 JWT : Si 2FA OK, un JWT est généré et stocké en session.
 Accès : L’utilisateur peut accéder aux routes protégées.
 
-Donc caprès autorsation oauth github couche de sécurité en plus avec 2fa au choix email 
--> au final une personne vérifiée par github + email la sécurité est optimale (cas d'usage ici exercice)
