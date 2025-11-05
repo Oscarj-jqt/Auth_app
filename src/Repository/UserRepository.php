@@ -87,4 +87,21 @@ class UserRepository
         // return saved user (fresh)
         return $this->findById($user['id']) ?? $user;
     }
+
+    public function update(string $id, array $newData): bool
+    {
+        $all = $this->readAll();
+        $updated = false;
+        foreach ($all as &$u) {
+            if (isset($u['id']) && $u['id'] === $id) {
+                $u = array_merge($u, $newData);
+                $updated = true;
+                break;
+            }
+        }
+        if ($updated) {
+            $this->writeAll($all);
+        }
+        return $updated;
+    }
 }
