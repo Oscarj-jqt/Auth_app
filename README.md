@@ -36,12 +36,15 @@ Assure-toi que toutes ces variables sont bien renseignées avant de lancer le se
 composer install
 
 
-3. Configuration PHP/cURL (Windows)
+3. Configuration PHP/cURL (Windows) 
 Télécharge cacert.pem sur https://curl.se/ca/cacert.pem
 Place-le dans ton dossier PHP (ex : extras/ssl)
 Ajoute dans php.ini (sans point-virgule) :
 
 curl.cainfo = "C:\chemin\vers\cacert.pem"
+
+et pour la gestion du Qr code
+extension=gd (ou enlever le point-virgule s'il est déjà là)
 
 
 
