@@ -24,10 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_SESSION['user_email'] ?? null;
     if (!$email) {
         $usersFile = $config['users_file'];
-        $userId = $_SESSION['id'];
+        $userId = $_SESSION['id'] ?? null;
+        if (!$userId) {
+            echo "<p>Erreur : identifiant utilisateur manquant dans la session.</p>";
+            exit;
+        }
         $userRepo = new UserRepository($usersFile);
         $user = $userRepo->findById($userId);
-        $email = $user['email'] ?? ($_ENV['DEFAULT_USER_EMAIL'] ?? null);
+        $email = $user['email'] ?? ($_ENV['MAIL_FROM'] ?? null);
         $_SESSION['user_email'] = $email;
     }
 

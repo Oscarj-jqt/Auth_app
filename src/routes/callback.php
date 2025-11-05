@@ -72,12 +72,16 @@ $usersFile = $config['users_file'] ?? __DIR__ . '/../../data/users.json';
 $userRepository = new UserRepository($usersFile);
 $saved = $userRepository->save($userArray);
 
+// Stocker l'id et l'email dans la session
+$_SESSION['id'] = $saved['id'];
+$_SESSION['user_email'] = $saved['email'] ?? null;
+
 // Générer le JWT après l'enregistrement du user
 $jwtService = new JWTService($config['jwt_secret'], $config['jwt_issuer'], $config['jwt_ttl']);
 $jwt = $jwtService->encode([
     'user_id' => $saved['id'],
-    'github_id' => $saved['github_id'],
-    'username' => $saved['username'],
+    'github_id' => $saved['id'],
+    'username' => $saved['login'],
     // autres infos si besoin
 ]);
 

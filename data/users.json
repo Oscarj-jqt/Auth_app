@@ -26,19 +26,6 @@
         "updated_at": "2025-11-01T11:00:00Z"
     },
     {
-        "id": "3",
-        "username": "oscar",
-        "email": "jacquetoscar0@gmail.com",
-        "phone": "",
-        "password_hash": "$2y$10$GMh4uq6GoSOseGBZaWdnWOegwKp67O2iFVfg4oyWoqs1\/qiu1Lw5i",
-        "github_id": "Ov23liKvclHz9oFH6QD5",
-        "twofa_type": "email",
-        "twofa_secret": null,
-        "is_twofa_verified": false,
-        "created_at": "2025-11-01T10:00:00Z",
-        "updated_at": "2025-11-01T10:00:00Z"
-    },
-    {
         "login": "Oscarj-jqt",
         "id": 153740216,
         "node_id": "U_kgDOCSnjuA",
@@ -76,7 +63,7 @@
         "private_gists": 0,
         "total_private_repos": 22,
         "owned_private_repos": 22,
-        "disk_usage": 1155716,
+        "disk_usage": 1155719,
         "collaborators": 0,
         "two_factor_authentication": true,
         "plan": {

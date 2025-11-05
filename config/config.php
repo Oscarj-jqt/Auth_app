@@ -15,18 +15,18 @@ return [
     'users_file' => __DIR__ . '/../data/users.json',
 
     // JWT
-    'jwt_secret' => getenv('JWT_SECRET') ?: 'replace_with_a_strong_secret',
+    'jwt_secret' => $_ENV['JWT_SECRET'] ?? 'replace_with_a_strong_secret',
     'jwt_issuer' => 'your-app',
     'jwt_ttl' => 3600, // seconds
 
     // Twilio / Mail placeholders
     'twilio' => [
-        'sid' => getenv('TWILIO_SID') ?: '',
-        'token' => getenv('TWILIO_TOKEN') ?: '',
-        'from' => getenv('TWILIO_FROM') ?: '',
+        'sid' => $_ENV['TWILIO_SID'] ?? '',
+        'token' => $_ENV['TWILIO_TOKEN'] ?? '',
+        'from' => $_ENV['TWILIO_FROM'] ?? '',
     ],
     'mail' => [
-        'from' => 'jacquetoscar0@gmail.com',
-        'password' => getenv('MAIL_PASSWORD') ?: ''
+        'from' => $_ENV['MAIL_FROM'] ?? '',
+        'password' => $_ENV['MAIL_PASSWORD'] ?? ''
     ]
 ];
