@@ -1,3 +1,23 @@
+# Auth_app – Authentification OAuth GitHub + 2FA (email ou QR code)
+
+Cette application PHP permet à un utilisateur de se connecter via GitHub OAuth, puis de valider son identité avec une double authentification : par email ou via QR code compatible Google Authenticator (TOTP).  
+Après validation, il accède à une route protégée affichant ses informations.
+
+---
+
+## Parcours utilisateur OAuth & 2FA
+
+1. L’utilisateur se connecte via GitHub OAuth et autorise l’application
+2. Il choisit sa méthode de double authentification : email ou QR code (TOTP)
+3. S’il choisit email, il reçoit un code à saisir ; s’il choisit QR code, il scanne avec Google Authenticator et saisit le code généré
+4. Une fois la 2FA validée, il accède à la route protégée qui affiche :
+   - Son nom d’utilisateur GitHub et son ID
+   - Son email (si 2FA email)
+   - Le type d’authentification 2FA utilisé
+   - Un message spécifique si la connexion a été validée par QR code
+
+---
+
 ## Prérequis
 
 - PHP >= 8.0
@@ -94,15 +114,3 @@ JWT_TTL=3600
 - Saisis le code généré pour valider ta connexion
 
 ---
-
-## 4. Parcours utilisateur OAuth & 2FA
-
-1. L’utilisateur se connecte via GitHub OAuth et autorise l’application
-2. Il choisit sa méthode de double authentification : email ou QR code (TOTP)
-3. S’il choisit email, il reçoit un code à saisir ; s’il choisit QR code, il scanne avec Google Authenticator et saisit le code généré
-4. Une fois la 2FA validée, il accède à la route protégée qui affiche :
-   - Son nom d’utilisateur GitHub et son ID
-   - Son email (si 2FA email)
-   - Le type d’authentification 2FA utilisé
-   - Un message spécifique si la connexion a été validée par QR code
-
