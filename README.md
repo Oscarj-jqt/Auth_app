@@ -1,27 +1,48 @@
-## Configuration obligatoire
+## Prérequis
 
-Avant de lancer le projet, crée un fichier `.env` à la racine et renseigne :
+- PHP >= 8.0
+- Composer
+- Un compte GitHub
+- Un compte Gmail (pour l’envoi d’emails)
 
-- `GITHUB_CLIENT_ID` et `GITHUB_CLIENT_SECRET` : récupérés sur [GitHub Developer Settings](https://github.com/settings/developers) après création d’une application OAuth.
-- `GITHUB_REDIRECT_URI` : l’URL de callback (ex : `http://localhost:8080/callback`).
-- `MAIL_FROM` : ton adresse email d’envoi (ex : Gmail).
-- `MAIL_PASSWORD` : le mot de passe d’application SMTP (pour Gmail, génère-le dans les paramètres de sécurité Google).
-- `DEFAULT_USER_EMAIL` : email par défaut si l’utilisateur n’en a pas.
-- `JWT_SECRET`, `JWT_ISSUER`, `JWT_TTL` : pour la génération des tokens JWT.
+---
 
-2. Configuration GitHub
-Crée une application OAuth sur github.com/settings/developers
-Mets l’URL de callback : http://localhost:8080/callback
-Récupère le client_id et client_secret pour .env
+## 1. Installation des dépendances
 
-**Exemple de .env :**
+```bash
+composer install
+```
+
+---
+
+## 2. Configuration de l’application
+
+### Où trouver les identifiants GitHub OAuth ?
+
+Pour obtenir les valeurs `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` et définir `GITHUB_REDIRECT_URI` :
+
+1. Va sur [GitHub Developer Settings](https://github.com/settings/developers)
+2. Clique sur "New OAuth App"
+3. Renseigne :
+   - **Application name** : le nom de ton projet
+   - **Homepage URL** : `https://localhost/public/index.php`
+   - **Authorization callback URL** : `http://localhost:8080/callback`
+4. Valide la création, puis copie :
+   - Le **Client ID** dans `GITHUB_CLIENT_ID`
+   - Le **Client Secret** dans `GITHUB_CLIENT_SECRET`
+   - L’URL de callback dans `GITHUB_REDIRECT_URI` (doit être identique à celle renseignée sur GitHub)
+
+### 2.1. Création du fichier `.env`
+
+Crée un fichier `.env` à la racine du projet et renseigne :
+
 ```
 GITHUB_CLIENT_ID=ton_client_id_github
 GITHUB_CLIENT_SECRET=ton_client_secret_github
 GITHUB_REDIRECT_URI=http://localhost:8080/callback
 
 MAIL_FROM=tonemail@gmail.com
-MAIL_PASSWORD=mot_de_passe_application_gmail
+MAIL_PASSWORD="mot_de_passe_application_gmail"
 DEFAULT_USER_EMAIL=tonemail@gmail.com
 
 JWT_SECRET=une_cle_secrete_pour_jwt
@@ -29,51 +50,59 @@ JWT_ISSUER=your-app
 JWT_TTL=3600
 ```
 
-Assure-toi que toutes ces variables sont bien renseignées avant de lancer le serveur.
+---
 
+### 2.2. Configuration GitHub OAuth
 
-. Bibliothèques à installer
-composer install
+1. Va sur [GitHub Developer Settings](https://github.com/settings/developers)
+2. Crée une application OAuth
+3. Mets l’URL de callback : `http://localhost:8080/callback`
+4. Récupère le client_id et client_secret et renseigne-les dans `.env`
 
+---
 
-3. Configuration PHP/cURL (Windows) 
-Télécharge cacert.pem sur https://curl.se/ca/cacert.pem
-Place-le dans ton dossier PHP (ex : extras/ssl)
-Ajoute dans php.ini (sans point-virgule) :
-
-curl.cainfo = "C:\chemin\vers\cacert.pem"
-
-et pour la gestion du Qr code
-extension=gd (ou enlever le point-virgule s'il est déjà là)
-
-### Configuration du mot de passe d’application Gmail
-
-Pour que l’envoi d’email fonctionne avec Gmail, tu dois créer un mot de passe d’application :
+### 2.3. Configuration Gmail (mot de passe d’application)
 
 1. Va sur : [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
-2. Connecte-toi à ton compte Google.
-3. Sélectionne "Autre (nom personnalisé)" et indique par exemple "OAuth App".
-4. Copie le mot de passe généré et colle-le avec des guillemets dans la variable `MAIL_PASSWORD` de ton fichier `.env`.
+2. Connecte-toi à ton compte Google
+3. Sélectionne "Autre (nom personnalisé)" et indique par exemple "OAuth App"
+4. Copie le mot de passe généré et colle-le dans `MAIL_PASSWORD` (avec des guillemets si besoin)
 
+---
 
-### Double authentification TOTP (QR code)
+### 2.4. Configuration PHP/cURL (Windows)
 
-Pour utiliser la double authentification par QR code :
+- Télécharge [cacert.pem](https://curl.se/ca/cacert.pem)
+- Place-le dans ton dossier PHP (ex : extras/ssl)
+- Ajoute dans `php.ini` :
+  ```
+  curl.cainfo = "C:\chemin\vers\cacert.pem"
+  ```
+- Active l’extension GD pour la génération de QR code :
+  ```
+  extension=gd
+  ```
 
-1. Installe une application compatible TOTP sur ton téléphone :
-   - [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2)
-   - Authy, Microsoft Authenticator, etc.
+---
 
-2. Lors du choix "Google Authenticator (TOTP)", scanne le QR code affiché avec l’application.
+## 3. Double authentification TOTP (QR code)
 
-3. Saisis le code généré par l’application pour valider ta connexion.
+- Installe une application compatible TOTP sur ton téléphone :
+  - [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2)
+  - Authy, Microsoft Authenticator, etc.
+- Lors du choix "Google Authenticator (TOTP)", scanne le QR code affiché avec l’application
+- Saisis le code généré pour valider ta connexion
 
+---
 
-### Fonctionnement de l'app
-Login : L’utilisateur se connecte via GitHub OAuth.
-Callback : Le serveur échange le code contre un token puis récupère le profil GitHub.
-2FA : L’utilisateur choisit le facteur email ou code QR. Un code est envoyé.
-Vérification : L’utilisateur saisit le code reçu.
-JWT : Si 2FA OK, un JWT est généré et stocké en session.
-Accès : L’utilisateur peut accéder aux routes protégées.
+## 4. Parcours utilisateur OAuth & 2FA
+
+1. L’utilisateur se connecte via GitHub OAuth et autorise l’application
+2. Il choisit sa méthode de double authentification : email ou QR code (TOTP)
+3. S’il choisit email, il reçoit un code à saisir ; s’il choisit QR code, il scanne avec Google Authenticator et saisit le code généré
+4. Une fois la 2FA validée, il accède à la route protégée qui affiche :
+   - Son nom d’utilisateur GitHub et son ID
+   - Son email (si 2FA email)
+   - Le type d’authentification 2FA utilisé
+   - Un message spécifique si la connexion a été validée par QR code
 
