@@ -16,8 +16,8 @@ return [
 
     // JWT
     'jwt_secret' => $_ENV['JWT_SECRET'] ?? 'replace_with_a_strong_secret',
-    'jwt_issuer' => 'your-app',
-    'jwt_ttl' => 3600, // seconds
+    'jwt_issuer' => 'Auth_app',
+    'jwt_ttl' => 3600, 
 
     // Twilio / Mail placeholders
     'twilio' => [

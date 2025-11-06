@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = $_SESSION['user_email'] ?? $user['email'] ?? ($_ENV['MAIL_FROM'] ?? null);
         $_SESSION['user_email'] = $email;
         $user['twofa_secret'] = null;
+        // echo $email;
 
 
         if ($email) {
@@ -52,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
-                $mail->setFrom('noreply@tondomaine.com', 'MonApp');
+                $mail->setFrom('noreply@tondomaine.com', 'Auth_app');
                 $mail->addAddress($email);
                 $mail->Subject = 'Votre code de vérification 2FA';
                 $mail->Body = "Voici votre code de vérification : $code";
@@ -80,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Générer le QR code
         $totp = TOTP::create($secret);
         $totp->setLabel($user['username'] ?? $user['login'] ?? 'user');
-        $totp->setIssuer('MonApp');
+        $totp->setIssuer('Auth_app');
         $qrUri = $totp->getProvisioningUri();
 
         $qrCode = new QrCode($qrUri);
