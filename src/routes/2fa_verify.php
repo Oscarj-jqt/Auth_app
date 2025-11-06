@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<a href='/protected'>Accéder à la ressource protégée</a>";
         } else {
             echo "<p>Code incorrect, veuillez réessayer.</p>";
-            echo "<a href='/2fa_send'>Renvoyer le code</a>";
+            echo "<a href='/2fa_select'>Renvoyer le code</a>";
         }
     } elseif ($_SESSION['2fa_type'] === 'totp') {
         $secret = $_SESSION['totp_secret'] ?? null;
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "<a href='/protected'>Accéder à la ressource protégée</a>";
             } else {
                 echo "<p>Code TOTP incorrect, veuillez réessayer.</p>";
-                echo "<a href='/2fa_send'>Renvoyer le code</a>";
+                echo "<a href='/2fa_select'>Renvoyer le code</a>";
             }
         } else {
             echo "<p>Erreur : secret TOTP manquant dans la session.</p>";
