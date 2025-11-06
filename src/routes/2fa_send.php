@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user['twofa_secret'] = null;
         // echo $email;
 
-
+        
         if ($email) {
             $mail = new PHPMailer(true);
             try {
@@ -71,7 +71,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for='code'>Code reçu par email :</label>
         <input type='text' name='code' required>
         <button type='submit'>Vérifier</button>
-    </form>";
+        <p style='color:gray;font-size:0.9em;'>L’envoi du mail peut prendre quelques secondes, merci de patienter.</p>
+    </form>
+    <form method='post' action='/2fa_send'>
+    <input type='hidden' name='type' value='email'>
+    <button type='submit'>Renvoyer le code</button>
+</form>";
     } elseif ($type === 'totp') {
         // Générer ou récupérer le secret TOTP
         $secret = $user['twofa_secret'] ?? TOTP::create()->getSecret();

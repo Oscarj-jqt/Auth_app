@@ -9,7 +9,7 @@ class User {
     public ?string $phone;
     public ?string $password_hash;
     public ?string $github_id;
-    public string $twofa_type; // 'email', 'sms', 'totp'
+    public string $twofa_type; 
     public ?string $twofa_secret;
     public bool $is_twofa_verified;
     public string $created_at;
