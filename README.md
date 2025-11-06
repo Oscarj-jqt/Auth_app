@@ -46,12 +46,23 @@ curl.cainfo = "C:\chemin\vers\cacert.pem"
 et pour la gestion du Qr code
 extension=gd (ou enlever le point-virgule s'il est déjà là)
 
+### Double authentification TOTP (QR code)
+
+Pour utiliser la double authentification par QR code :
+
+1. Installe une application compatible TOTP sur ton téléphone :
+   - [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2)
+   - Authy, Microsoft Authenticator, etc.
+
+2. Lors du choix "Google Authenticator (TOTP)", scanne le QR code affiché avec l’application.
+
+3. Saisis le code généré par l’application pour valider ta connexion.
 
 
-🔒 Fonctionnement
+### Fonctionnement de l'app
 Login : L’utilisateur se connecte via GitHub OAuth.
-Callback : Le serveur échange le code contre un token, récupère le profil GitHub.
-2FA : L’utilisateur choisit le facteur (email recommandé). Un code est envoyé.
+Callback : Le serveur échange le code contre un token puis récupère le profil GitHub.
+2FA : L’utilisateur choisit le facteur email ou code QR. Un code est envoyé.
 Vérification : L’utilisateur saisit le code reçu.
 JWT : Si 2FA OK, un JWT est généré et stocké en session.
 Accès : L’utilisateur peut accéder aux routes protégées.
