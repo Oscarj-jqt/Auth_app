@@ -46,6 +46,16 @@ curl.cainfo = "C:\chemin\vers\cacert.pem"
 et pour la gestion du Qr code
 extension=gd (ou enlever le point-virgule s'il est déjà là)
 
+### Configuration du mot de passe d’application Gmail
+
+Pour que l’envoi d’email fonctionne avec Gmail, tu dois créer un mot de passe d’application :
+
+1. Va sur : [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+2. Connecte-toi à ton compte Google.
+3. Sélectionne "Autre (nom personnalisé)" et indique par exemple "OAuth App".
+4. Copie le mot de passe généré et colle-le avec des guillemets dans la variable `MAIL_PASSWORD` de ton fichier `.env`.
+
+
 ### Double authentification TOTP (QR code)
 
 Pour utiliser la double authentification par QR code :
