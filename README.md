@@ -81,7 +81,22 @@ JWT_TTL=3600
 
 ---
 
-### 2.3. Configuration Gmail pour l’envoi d’emails
+### 2.3. Configuration PHP/cURL (Windows)
+
+- Télécharge [cacert.pem](https://curl.se/ca/cacert.pem)
+- Place-le dans ton dossier PHP (ex : extras/ssl)
+- Ajoute dans `php.ini` :
+  ```
+  curl.cainfo = "C:\chemin\vers\cacert.pem"
+  ```
+- Active l’extension GD pour la génération de QR code :
+  ```
+  extension=gd
+  ```
+
+---
+
+### 2.4. Configuration Gmail pour l’envoi d’emails
 
 Pour utiliser l’envoi d’emails avec Gmail :
 
@@ -99,22 +114,7 @@ Si tu désactives puis réactives la 2FA, tu dois générer un nouveau mot de pa
 
 ---
 
-### 2.4. Configuration PHP/cURL (Windows)
-
-- Télécharge [cacert.pem](https://curl.se/ca/cacert.pem)
-- Place-le dans ton dossier PHP (ex : extras/ssl)
-- Ajoute dans `php.ini` :
-  ```
-  curl.cainfo = "C:\chemin\vers\cacert.pem"
-  ```
-- Active l’extension GD pour la génération de QR code :
-  ```
-  extension=gd
-  ```
-
----
-
-## 3. Double authentification TOTP (QR code)
+## 2.5. Double authentification TOTP (QR code)
 
 - Installe une application compatible TOTP sur ton téléphone :
   - [Google Authenticator](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2)
@@ -123,3 +123,9 @@ Si tu désactives puis réactives la 2FA, tu dois générer un nouveau mot de pa
 - Saisis le code généré pour valider ta connexion
 
 ---
+
+### Lancer le serveur
+
+```bash
+php -S localhost:8080 -t public/
+```
