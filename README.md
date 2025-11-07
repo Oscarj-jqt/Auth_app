@@ -44,13 +44,13 @@ Pour obtenir les valeurs `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` et définir 
 1. Va sur [GitHub Developer Settings](https://github.com/settings/developers)
 2. Clique sur "New OAuth App"
 3. Renseigne :
-   - **Application name** : le nom de ton projet
+   - **Application name** : Auth_app
    - **Homepage URL** : `https://localhost/public/index.php`
    - **Authorization callback URL** : `http://localhost:8080/callback`
 4. Valide la création, puis copie :
    - Le **Client ID** dans `GITHUB_CLIENT_ID`
    - Le **Client Secret** dans `GITHUB_CLIENT_SECRET`
-   - L’URL de callback dans `GITHUB_REDIRECT_URI` (doit être identique à celle renseignée sur GitHub)
+   - L’URL de callback dans `GITHUB_REDIRECT_URI` 
 
 ### 2.1. Création du fichier `.env`
 
