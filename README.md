@@ -81,12 +81,21 @@ JWT_TTL=3600
 
 ---
 
-### 2.3. Configuration Gmail (mot de passe d’application)
+### 2.3. Configuration Gmail pour l’envoi d’emails
 
-1. Va sur : [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
-2. Connecte-toi à ton compte Google
-3. Sélectionne "Autre (nom personnalisé)" et indique par exemple "OAuth App"
-4. Copie le mot de passe généré et colle-le dans `MAIL_PASSWORD` (avec des guillemets si besoin)
+Pour utiliser l’envoi d’emails avec Gmail :
+
+1. **Active la double authentification (2FA) sur ton compte Google**  
+   Va dans les paramètres de sécurité de ton compte Google et active la validation en deux étapes.
+
+2. **Génère un mot de passe d’application**  
+   - Va sur : [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+   - Si tu n’as pas activé la 2FA, cette page te demandera de le faire.
+   - Crée un mot de passe d’application (nomme-le par exemple "OAuth App").
+   - Copie ce mot de passe et colle-le dans la variable `MAIL_PASSWORD` de ton fichier `.env`.
+
+**Attention :**  
+Si tu désactives puis réactives la 2FA, tu dois générer un nouveau mot de passe d’application : les anciens sont supprimés automatiquement.
 
 ---
 
