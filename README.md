@@ -129,3 +129,10 @@ Si tu désactives puis réactives la 2FA, tu dois générer un nouveau mot de pa
 ```bash
 php -S localhost:8080 -t public/
 ```
+
+
+### Contributeurs
+
+Oscar JACQUET
+Issa ABDOULAYE
+Aryles BEN CHABANE
